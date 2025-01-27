@@ -75,6 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- Create Links -->
         <a href="create_project.php" class="btn">Create New Project</a>
         <a href="create_task.php" class="btn">Create New Task</a>
+        <a href="work_on_projects.php">Work on Projects</a>
+        <a href="view_interests.php">view interests</a>
+
 
         <!-- Display Projects -->
         <h3>Your Projects</h3>
