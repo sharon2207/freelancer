@@ -56,6 +56,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo "Error updating task status: " . $task_stmt->error;
         }
+    } elseif (isset($_POST['delete_project'])) {
+        // Delete project
+        $project_id = $_POST['project_id'];
+
+        $delete_project_sql = "DELETE FROM projects WHERE id = ?";
+        $stmt = $conn->prepare($delete_project_sql);
+        $stmt->bind_param("i", $project_id);
+
+        if ($stmt->execute()) {
+            // Optionally delete related tasks
+            $delete_tasks_sql = "DELETE FROM tasks WHERE project_id = ?";
+            $task_stmt = $conn->prepare($delete_tasks_sql);
+            $task_stmt->bind_param("i", $project_id);
+            $task_stmt->execute();
+
+            header('Location: dashboard.php');
+            exit();
+        } else {
+            echo "Error deleting project: " . $stmt->error;
+        }
+    } elseif (isset($_POST['delete_task'])) {
+        // Delete task
+        $task_id = $_POST['task_id'];
+
+        $delete_task_sql = "DELETE FROM tasks WHERE id = ?";
+        $stmt = $conn->prepare($delete_task_sql);
+        $stmt->bind_param("i", $task_id);
+
+        if ($stmt->execute()) {
+            header('Location: dashboard.php');
+            exit();
+        } else {
+            echo "Error deleting task: " . $stmt->error;
+        }
     }
 }
 ?>
@@ -66,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     <div class="dashboard">
@@ -75,9 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- Create Links -->
         <a href="create_project.php" class="btn">Create New Project</a>
         <a href="create_task.php" class="btn">Create New Task</a>
-        <a href="work_on_projects.php">Work on Projects</a>
-        <a href="view_interests.php">view interests</a>
-
+        <a href="work_on_projects.php" class="btn">Work on Projects</a>
+        <a href="view_interests.php" class="btn">view interests</a>
 
         <!-- Display Projects -->
         <h3>Your Projects</h3>
@@ -97,6 +130,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <option value="Completed" <?= $project['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
                         </select>
                         <button type="submit" name="update_project_status">Update Status</button>
+                    </form>
+
+                    <!-- Delete Project Form -->
+                    <form method="POST" action="dashboard.php" onsubmit="return confirm('Are you sure you want to delete this project? This will also delete associated tasks.')">
+                        <input type="hidden" name="project_id" value="<?= $project['id'] ?>">
+                        <button type="submit" name="delete_project" style="color: red;">Delete Project</button>
                     </form>
 
                     <!-- Display Tasks for Each Project -->
@@ -120,6 +159,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <option value="Completed" <?= $task['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
                                     </select>
                                     <button type="submit" name="update_task_status">Update Task</button>
+                                </form>
+
+                                <!-- Delete Task Form -->
+                                <form method="POST" action="dashboard.php" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this task?')">
+                                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                                    <button type="submit" name="delete_task" style="color: red;">Delete Task</button>
                                 </form>
                             </li>
                         <?php endwhile; ?>

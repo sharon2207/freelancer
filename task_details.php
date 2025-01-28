@@ -1,5 +1,5 @@
 <?php
-require 'db_connection.php';
+require 'db_config.php';
 
 // Get the task ID
 $task_id = $_GET['task_id'];

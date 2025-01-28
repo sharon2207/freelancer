@@ -1,0 +1,194 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+}
+
+/* Dashboard Container */
+.dashboard {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Dashboard Header */
+.dashboard h2 {
+    font-size: 2.5em;
+    text-align: center;
+    color: #ffcd02;
+    margin-bottom: 20px;
+}
+
+/* Create New Project / Task Button Styling */
+.dashboard .btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 20px;
+    background: #ffcd02;
+    color: #333;
+    font-size: 1.2em;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.dashboard .btn:hover {
+    background: #ffb800;
+    transform: translateY(-3px);
+}
+
+/* Work on Projects Button */
+.dashboard .work-on-projects {
+    background: #28a745; /* Green for 'Work on Projects' */
+    color: #fff;
+    font-size: 1.3em;
+    padding: 14px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard .work-on-projects:hover {
+    background: #218838; /* Darker green on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* View Interest Button */
+.dashboard .view-interest {
+    background: #17a2b8; /* Teal for 'View Interest' */
+    color: #fff;
+    font-size: 1.3em;
+    padding: 14px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard .view-interest:hover {
+    background: #138496; /* Darker teal on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Project Section */
+.dashboard h3 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+/* Project List */
+.dashboard ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard ul li {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.dashboard ul li:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard ul li h4 {
+    font-size: 1.5em;
+    color: #ffcd02;
+    margin-bottom: 10px;
+}
+
+.dashboard ul li p {
+    font-size: 1.1em;
+    color: #fff;
+}
+
+.dashboard ul li select, .dashboard ul li button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    background: #ffcd02;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dashboard ul li select:hover, .dashboard ul li button:hover {
+    background: #ffb800;
+}
+
+/* Task Section */
+.dashboard ul li h5 {
+    font-size: 1.2em;
+    color: #ffcd02;
+    margin-top: 15px;
+}
+
+.dashboard ul li ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard ul li ul li {
+    background: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.dashboard ul li ul li span {
+    font-size: 1.1em;
+    color: #fff;
+}
+
+/* Task Actions */
+.dashboard ul li ul li form {
+    display: inline;
+    margin-right: 10px;
+}
+
+.dashboard ul li ul li form button {
+    background: #8a2304;
+    color: #f7efef;
+    font-size: 1em;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dashboard ul li ul li form button:hover {
+    background: #0d20ca;
+}
+
+.dashboard ul li ul li select, .dashboard ul li ul li button {
+    font-size: 1em;
+    background: #ffcd02;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dashboard ul li ul li select:hover, .dashboard ul li ul li button:hover {
+    background: #ffb800;
+}

@@ -1,0 +1,86 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+/* Form container styling */
+.form-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Title styling */
+.form-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #ffcd02;
+}
+
+/* Input fields styling */
+.form-container label {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+    color: #ffcd02;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    color: #333;
+    font-size: 1em;
+}
+
+/* Button styling */
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: #ffcd02;
+    color: #333;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+    background: #ffb800;
+}
+
+/* Link styling */
+.form-container a {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #ffcd02;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.form-container a:hover {
+    color: #ffb800;
+}

@@ -1,30 +1,29 @@
 <?php
-// Include the database connection
-include('db_config.php');
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 
-// Check if 'id' exists in the URL
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $project_id = $_GET['id'];
+// Connect to the database
+$conn = new mysqli('localhost', 'root', '', 'freelancer_platform');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Query to fetch the project from the database
-    $query = "SELECT * FROM projects WHERE id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $project_id);  // 'i' means integer
-    $stmt->execute();
-    $result = $stmt->get_result();
+$project_id = $_GET['id']; // Get the project ID from URL
 
-    // Check if the project exists in the database
-    if ($result->num_rows > 0) {
-        // Fetch the project details
-        $project = $result->fetch_assoc();
-    } else {
-        // If the project doesn't exist, show an error message
-        echo "Project not found.";
-        exit; // Stop further execution if no project found
-    }
+// Query to fetch the project details
+$query = "SELECT * FROM projects WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $project_id);  // 'i' means integer
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $project = $result->fetch_assoc();
 } else {
-    // If no 'id' is passed, show an error message or redirect
-    echo "Project ID is missing.";
+    echo "Project not found.";
     exit;
 }
 
@@ -52,22 +51,13 @@ $message_result = $message_stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Details</title>
-    <link rel="stylesheet" href="style.css"> <!-- Assuming you have a style.css -->
 </head>
 <body>
 
 <!-- Project Details Section -->
 <div class="project-details">
-    <?php
-    // Check if the project array is valid and contains the 'title' key
-    if (isset($project) && isset($project['title'])) {
-        // Display the project details
-        echo "<h1>" . htmlspecialchars($project['title']) . "</h1>";
-        echo "<p>" . htmlspecialchars($project['description']) . "</p>";
-    } else {
-        echo "<p>Error: Project title is missing or project not found.</p>";
-    }
-    ?>
+    <h1><?php echo htmlspecialchars($project['title']); ?></h1>
+    <p><?php echo htmlspecialchars($project['description']); ?></p>
 </div>
 
 <!-- Tasks for this Project -->
@@ -108,6 +98,14 @@ $message_result = $message_stmt->get_result();
     <a href="send_message.php?project_id=<?php echo $project['id']; ?>">Send Message</a>
 </div>
 
+<!-- Delete Project Form (Only for project owner) -->
+<?php if ($_SESSION['user_id'] == $project['user_id']) { ?>
+    <form action="delete_project.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?');">
+        <input type="hidden" name="project_id" value="<?php echo $project['id']; ?>">
+        <button type="submit" name="delete_project">Delete Project</button>
+    </form>
+<?php } ?>
+
 <!-- Navigation Section -->
 <div class="navigation">
     <a href="dashboard.php">Back to Dashboard</a>
@@ -115,3 +113,5 @@ $message_result = $message_stmt->get_result();
 
 </body>
 </html>
+
+<?php $conn->close(); ?>
